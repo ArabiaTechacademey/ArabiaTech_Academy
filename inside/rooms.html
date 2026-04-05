@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArabiaTech - تكنولوجيا المستقبل</title>
+    <link rel="icon" type="image/png" href="4.png">
+    <link rel="stylesheet" href="static/css/background.css">
+    <script src="rooms.js"></script>
+    <style>
+        :root {
+            --primary-yellow: #FFD700;
+            --secondary-yellow: #FFD700;
+            --hover-yellow: #FFD700;
+            --active-yellow: #F1C40F;
+            --text-dark: #693b3b;
+            --white: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --red: #E74C3C;
+            --hover-red: #C0392B;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: url("back.png");
+            background-size: 10%;
+        }
+        .main-content{
+            background:rgba(0, 0, 0, 0.7);
+            margin: 50px;
+            border-radius: 50px;
+        }
+        .logout-btn {
+            background-color: #FFD700;
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .top-header {
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 2px 10px var(--shadow);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            color: var(--primary-yellow);
+            margin-right: 8px;
+            font-size: 1.6rem;
+        }
+        
+        
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .header2 {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+            
+        }
+        
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px var(--shadow);
+        }
+        
+        .subtitle {
+            color:white;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 0;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .logo-text {
+                display: none;
+            }
+        }
+        
+        .room-button {
+            background-color: var(--white);
+            border: none;
+            border-radius: 15px;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            color: black;
+        }
+        
+        .room-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--primary-yellow);
+            transition: height 0.3s ease;
+        }
+        
+        .room-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .room-button:hover::before {
+            height: 100%;
+            opacity: 0.3;
+        }
+        
+        .room-button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px var(--shadow);
+            background-color: var(--active-yellow);
+            color: var(--white);
+        }
+        
+        .room-number {
+            position: relative;
+            z-index: 1;
+        }
+        
+       
+        header {
+           background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: #333;
+            margin-right: 10px;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .logo span {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        .header-image {
+            height: 50px;
+            object-fit: contain;
+        }
+        
+        .logout-btn {
+            background-color: #FFD700;
+            color: #000000;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logout-btn::before {
+           
+            font-size: 1.2rem;
+        }
+        
+        .logout-btn:hover {
+            background-color: #F4C430;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header-content {
+                padding: 0 15px;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .header-image {
+                height: 40px;
+                width: auto;
+            }
+            
+            .logout-btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+        .footer {
+    background-color: #f8f9fa;
+    padding: 60px 0 30px;
+    margin-top: 50px;
+    border-top: 1px solid #eaeaea;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 30px;
+    padding-right: 20px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.footer-logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+.footer-logo-text span {
+    color: #4e9af1;
+}
+
+.footer-about {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background-color: #faad61;
+    color: #fff;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(78, 154, 241, 0.3);
+    background-color: #3288e6;
+}
+
+.social-icon.facebook:hover {
+    background-color: #3b5998;
+}
+
+.social-icon.youtube:hover {
+    background-color: #ff0000;
+}
+
+.social-icon.gmail:hover {
+    background-color: #D44638;
+}
+
+.social-icon.linkedin:hover {
+    background-color: #0077b5;
+}
+
+.footer-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 3px;
+    background-color: #faad61;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 14px;
+}
+
+.footer-links a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-links a:hover {
+    color: #4e9af1;
+    padding-right: 5px;
+}
+
+.footer-links a i {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #faad61;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    color: #555;
+    font-size: 15px;
+}
+
+.footer-contact-item i {
+    margin-left: 12px;
+    color: #faad61;
+    font-size: 18px;
+    width: 20px;
+}
+
+.footer-newsletter p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+.newsletter-form {
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.newsletter-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-left: none;
+    border-radius: 5px 0 0 5px;
+    font-family: 'Cairo', sans-serif;
+    outline: none;
+    font-size: 14px;
+}
+
+.newsletter-input::placeholder {
+    color: #999;
+}
+
+.newsletter-input:focus {
+    border-color: #4e9af1;
+}
+
+.newsletter-button {
+    background-color: #faad61;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.newsletter-button:hover {
+    background-color: #3288e6;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid #eaeaea;
+    color: #777;
+    font-size: 14px;
+    width: 100%;
+}
+
+.copyright a {
+    color: #4e9af1;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.copyright a:hover {
+    text-decoration: underline;
+}
+
+/* الموقع الحساس */
+@media screen and (max-width: 992px) {
+    .footer-container {
+        justify-content: flex-start;
+    }
+    
+    .footer-column {
+        flex-basis: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
+    
+    .footer-column {
+        width: 100%;
+        padding-right: 0;
+    }
+    
+    .footer-logo {
+        justify-content: center;
+    }
+    
+    .footer-about {
+        text-align: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
+    }
+    
+    .footer-title {
+        text-align: center;
+    }
+    
+    .footer-title::after {
+        right: 50%;
+        transform: translateX(50%);
+    }
+    
+    .newsletter-form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <h1><span>الانضمام</span> الى الاجتماع</h1>
+            </div>
+            <img src="logo_w.png" alt="شعار الموقع" class="header-image">
+            <button class="logout-btn" id="logoutBtn">تسجيل الخروج</button>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <div class="header2">
+            <h1>اختيار الغرفة</h1>
+            <p class="subtitle">يرجى اختيار غرفة للمتابعة</p>
+        </div>
+        
+        <div class="container">
+            <button class="room-button" onclick="selectRoom(1)">
+                <span class="room-number"> الغرفة 1</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(2)">
+                <span class="room-number">الغرفة 2</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(3)">
+                <span class="room-number">الغرفة 3</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(4)">
+                <span class="room-number">الغرفة 4</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(5)">
+                <span class="room-number">الغرفة 5</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(6)">
+                <span class="room-number">الغرفة 6</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(7)">
+                <span class="room-number">الغرفة 7</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(8)">
+                <span class="room-number">الغرفة 8</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(9)">
+                <span class="room-number">الغرفة 9</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(10)">
+                <span class="room-number">الغرفة 10</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(11)">
+                <span class="room-number">الغرفة 11</span>
+            </button>
+            <button class="room-button" onclick="selectRoom(12)">
+                <span class="room-number">الغرفة 12</span>
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Column 1: Logo & About -->
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="Logo">
+                    <div class="footer-logo-text"></div>
+                </div>
+                <p class="footer-about">
+                  تقدم منصتنا أفضل  تجربة تعليمية متميزة في مجالات البرمجة والتكنولوجيا نسعى دائمًا لتحقيق رضا طلابنا من خلال محتوى تعليمي عالي الجودة، وتدريب عملي مبتكر ودعم مستمر مما يمكنهم من اكتساب المهارات اللازمة لمواكبة تطورات سوق العمل التقني                </p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/profile.php?id=61571660153694" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@ArabiaTechAcademy" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="mennaayman1232222@gmail.com" class="social-icon gmail"><i class="fas fa-envelope"></i></a>
+                    <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column">
+                <h3 class="footer-title">روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-left"></i> من نحن</a></li>
+                    <li><a href="https://wa.me/+201080749803"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                    
+                </ul>
+            </div>
+            
+            <!-- Column 3: Contact Info -->
+            <div class="footer-column">
+                <h3 class="footer-title">معلومات الاتصال</h3>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span> القاهرة،  جمهوريه مصر العربيه </span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>admin@arabiateches.com</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+201080749803</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>ساعات العمل: 9 صباحًا -10  مساءً</span>
+                </div>
+            </div>
+            
+            <!-- Column 4: Newsletter -->
+            <div class="footer-column">
+                <h3 class="footer-title">النشرة الإخبارية</h3>
+                <p>انضم إلى نشرتنا الإخبارية للحصول على آخر التحديثات والعروض الخاصة وأحدث أخبار التكنولوجيا</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="البريد الإلكتروني" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Copyright Section -->
+        <div class="footer-container">
+            <div class="copyright">
+                جميع الحقوق محفوظة &copy; 2025 <a href="#">اربيا تك   </a> | تصميم وتطوير بواسطة فريق مؤسسه اربيا تك
+            </div>
+        </div>
+      </footer>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+      
+</body>
+</html>

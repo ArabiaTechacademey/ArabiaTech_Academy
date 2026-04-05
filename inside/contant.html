@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArabiaTech - تكنولوجيا المستقبل</title>
+    <link rel="stylesheet" href="static/css/background.css">
+    <link rel="icon" type="image/png" href="4.png">
+    <script src="contant.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #FDD935;
+            --primary-hover: #FDD935;
+            --accent-color: #FDD935;
+            --accent-hover: #FDD935;
+            --text-color: #333333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.08);
+            --transition: all 0.25s ease-in-out;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            direction: rtl;
+            background-image: url("back.png");
+            background-size: 10%;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: var(--shadow-light);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            
+        }
+        
+        .logo h1 {
+            color: var(--text-color);
+            margin-right: 10px;
+            font-size: 24px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 500;
+            color: black;
+        }
+        
+        .container {
+            background: rgba(0, 0, 0, 0.7);;
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 40px;
+            color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            border: 1px solid var(--medium-gray);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin-top: 40px;
+            color: white;
+        }
+        
+        .level-buttons, .function-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .level-btn, .function-btn {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 200px;
+            font-weight: 500;
+            box-shadow: var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .level-btn {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            border: none;
+        }
+        
+        .level-btn:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .level-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .function-btn {
+             background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            border: 1px solid var(--primary-color);
+        }
+        
+        .function-btn:hover {
+            color: #ffffff;
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        button:disabled {
+            background-color: var(--medium-gray);
+            color: #888888;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.7;
+            border: none;
+            box-shadow: none;
+        }
+        
+        h2 {
+            color: white;
+            font-size: 1.7rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent-color);
+            border-radius: 1px;
+        }
+        
+        .logout-btn {
+            background-color: #ffffff;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .logout-btn:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            box-shadow: var(--shadow-light);
+        }
+        
+        @media screen and (max-width: 992px) {
+            .container {
+                padding: 30px 25px;
+                margin: 30px 20px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header-content {
+                grid-template-columns: 1fr;
+                justify-items: center;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .container {
+                padding: 25px 20px;
+                margin: 20px 15px;
+            }
+            
+            .level-buttons, .function-buttons {
+                gap: 15px;
+            }
+            
+            .level-btn, .function-btn {
+                padding: 14px 24px;
+                font-size: 1rem;
+                min-width: 180px;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .button-container {
+                gap: 35px;
+            }
+            .header-content img{
+                width: 30%;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .header-content {
+                grid-template-columns: 1fr;
+                justify-items: center;
+                text-align: center;
+                gap: 10px;
+            }
+            .header-content img{
+                width: 150%;
+            }
+            
+            .button-container {
+                gap: 25px;
+            }
+        }
+        .footer {
+    background-color: #f8f9fa;
+    padding: 60px 0 30px;
+    margin-top: 50px;
+    border-top: 1px solid #eaeaea;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 30px;
+    padding-right: 20px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.footer-logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+.footer-logo-text span {
+    color: #4e9af1;
+}
+
+.footer-about {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background-color: #faad61;
+    color: #fff;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(78, 154, 241, 0.3);
+    background-color: #3288e6;
+}
+
+.social-icon.facebook:hover {
+    background-color: #3b5998;
+}
+
+.social-icon.youtube:hover {
+    background-color: #ff0000;
+}
+
+.social-icon.gmail:hover {
+    background-color: #D44638;
+}
+
+.social-icon.linkedin:hover {
+    background-color: #0077b5;
+}
+
+.footer-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 3px;
+    background-color: #faad61;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 14px;
+}
+
+.footer-links a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-links a:hover {
+    color: #4e9af1;
+    padding-right: 5px;
+}
+
+.footer-links a i {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #faad61;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    color: #555;
+    font-size: 15px;
+}
+
+.footer-contact-item i {
+    margin-left: 12px;
+    color: #faad61;
+    font-size: 18px;
+    width: 20px;
+}
+
+.footer-newsletter p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+.newsletter-form {
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.newsletter-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-left: none;
+    border-radius: 5px 0 0 5px;
+    font-family: 'Cairo', sans-serif;
+    outline: none;
+    font-size: 14px;
+}
+
+.newsletter-input::placeholder {
+    color: #999;
+}
+
+.newsletter-input:focus {
+    border-color: #4e9af1;
+}
+
+.newsletter-button {
+    background-color: #faad61;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.newsletter-button:hover {
+    background-color: #3288e6;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid #eaeaea;
+    color: #777;
+    font-size: 14px;
+    width: 100%;
+}
+
+.copyright a {
+    color: #4e9af1;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.copyright a:hover {
+    text-decoration: underline;
+}
+
+/* الموقع الحساس */
+@media screen and (max-width: 992px) {
+    .footer-container {
+        justify-content: flex-start;
+    }
+    
+    .footer-column {
+        flex-basis: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-content {
+                
+                justify-items: center;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .logout-btn {
+                margin-top: 5px;
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    .footer-container {
+        flex-direction: column;
+    }
+    
+    .footer-column {
+        width: 100%;
+        padding-right: 0;
+    }
+    
+    .footer-logo {
+        justify-content: center;
+    }
+    
+    .footer-about {
+        text-align: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
+    }
+    
+    .footer-title {
+        text-align: center;
+    }
+    
+    .footer-title::after {
+        right: 50%;
+        transform: translateX(50%);
+    }
+    
+    .newsletter-form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <h1>محتوى <span>الدراسى</span></h1>
+            </div>
+            <img src="logo_w.png" alt="" width="15%">
+            
+            <button class="logout-btn" id="logoutBtn" style="color: #000;">تسجيل الخروج</button>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <h2>مستويات الوصول</h2>
+        
+        <div class="button-container">
+            <div class="level-buttons">
+                <button class="level-btn" id="level1Btn">المستوى 1</button>
+                <button class="level-btn" id="level2Btn">المستوى 2</button>
+                <button class="level-btn" id="level3Btn">المستوى 3</button>
+            </div>
+            
+            <h2>الوظائف</h2>
+            <div class="function-buttons">
+                <button class="function-btn" id="programsBtn">البرامج</button>
+                <button class="function-btn" id="examsBtn">الاختبارات</button>
+            </div>
+        </div>
+    </div>
+
+    
+  
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Column 1: Logo & About -->
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="Logo">
+                    <div class="footer-logo-text"></div>
+                </div>
+                <p class="footer-about">
+                  تقدم منصتنا أفضل  تجربة تعليمية متميزة في مجالات البرمجة والتكنولوجيا نسعى دائمًا لتحقيق رضا طلابنا من خلال محتوى تعليمي عالي الجودة، وتدريب عملي مبتكر ودعم مستمر مما يمكنهم من اكتساب المهارات اللازمة لمواكبة تطورات سوق العمل التقني                </p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/profile.php?id=61571660153694" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@ArabiaTechAcademy" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+                    <a href="mennaayman1232222@gmail.com" class="social-icon gmail"><i class="fas fa-envelope"></i></a>
+                    <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column">
+                <h3 class="footer-title">روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-left"></i> من نحن</a></li>
+                    <li><a href="https://wa.me/+201080749803"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                    
+                </ul>
+            </div>
+            
+            <!-- Column 3: Contact Info -->
+            <div class="footer-column">
+                <h3 class="footer-title">معلومات الاتصال</h3>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span> القاهرة،  جمهوريه مصر العربيه </span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>admin@arabiateches.com</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+201080749803</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>ساعات العمل: 9 صباحًا -10  مساءً</span>
+                </div>
+            </div>
+            
+            <!-- Column 4: Newsletter -->
+            <div class="footer-column">
+                <h3 class="footer-title">النشرة الإخبارية</h3>
+                <p>انضم إلى نشرتنا الإخبارية للحصول على آخر التحديثات والعروض الخاصة وأحدث أخبار التكنولوجيا</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="البريد الإلكتروني" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Copyright Section -->
+        <div class="footer-container">
+            <div class="copyright">
+                جميع الحقوق محفوظة &copy; 2025 <a href="#">اربيا تك   </a> | تصميم وتطوير بواسطة فريق مؤسسه اربيا تك
+            </div>
+        </div>
+      </footer>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>
