@@ -1,0 +1,30 @@
+
+  html, body {
+    height:100%;
+    margin:0;
+  }
+
+ 
+
+  /* خلفية متدرجة هادية */
+  body::before {
+    content:"";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(120deg,
+       #000000 0%,
+       #000000 50%,
+       #8100cc 100%);
+    background-size: 200% 200%;
+    animation: moveBg 15s ease infinite;
+    z-index: -1;
+  }
+
+  @keyframes moveBg {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+ 
+
