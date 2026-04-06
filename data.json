@@ -1,3 +1,4 @@
+
 {
   "students": [
 {
@@ -12,13 +13,13 @@
   "phone_number": "+201030727091",
   "parent_phone": "+201060055537",
   "current_course": "data",
-  "completed_courses": ["css"],
+  "completed_courses": ["py"],
   "track": "AI Track",
-  "link": "https://meet.google.com/ejz-cxsp-hdb"
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
 },
     {
   "name": "زياد احمد",
-  "id": "AMWX4378",
+  "id": "AMAXِ4378",
   "age": "17",
   "status": 1,
   "type": "group",
@@ -30,24 +31,241 @@
    "current_course": "data",
   "completed_courses": ["py"],
   "track": "AI Track",
-  "link": "https://meet.google.com/ejz-cxsp-hdb"
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
 },
 {
   "name": "مزن ولاء",
   "id": "AMAX7461",
-   "age": "15",
+  "age": "15",
   "status": 1,
   "type": "group",
   "monthly_price": 400,
-  "Day": "4",
-  "Time": "02:00 PM",
+  "Day": "Thursday",
+  "Time": "09:00 PM",
   "phone_number": "+201205658715",
   "parent_phone": "+201148958279",
   "current_course": "data",
   "completed_courses": ["py"],
   "track": "AI Track",
-  "link": "https://meet.google.com/ejz-cxsp-hdb"
-}
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+},
+  {
+    "name": "ياسين احمد",
+    "id": "AMWX5898",
+  "age": "15",
+  "status": 1,
+  "type": "group",
+  "monthly_price": 400,
+  "Day": "Monday",
+  "Time": "09:00 PM",
+  "phone_number": "+201282430096",
+    "parent_phone": "+201068083921",
+    "current_course": "js",
+    "completed_courses": ["html","css"],
+    "track": "AI Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+    
+  },
+  {
+    "name": "سلسبيل احمد",
+    "id": "AMWX8564",
+     "age": "12",
+    "status": 1,
+     "type": "group",
+  "monthly_price": 400,
+  "Day": "Monday",
+  "Time": "09:00 PM",
+    "phone_number": "+201016009997",
+    "parent_phone": "+201068083921",
+     "current_course": "js",
+    "completed_courses": ["html","css"],
+     "track": "AI Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  {
+    "name": "ناديه هانى",
+    "id": "AMWX5894",
+    "age": "12",
+    "status": 1,
+    "type": "group",
+  "monthly_price": 400,
+  "Day": "Monday",
+  "Time": "09:00 PM",
+    "phone_number": "+201148158752",
+    "parent_phone": "+201148158752",
+     "current_course": "js",
+    "completed_courses": ["html","css"],
+     "track": "AI Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  
+  {
+    "name": "مروان محمده",
+    "id": "AEWX4078",
+    "age": "16",
+    "status": 1,
+    "type": "group",
+    "monthly_price": 500,
+    "Day": "Friday",
+    "Time": "10:00 PM",
+    "phone_number": "01142419135",
+    "parent_phone": "01100731205",
+    "current_course": "css",
+    "completed_courses": ["html"],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  {
+    "name": "منتهى ولاء",
+    "id": "AMWX3817",
+    "age": "14",
+    "status": 1,
+    "type": "group",
+    "monthly_price": 400,
+      "Day": "Friday",
+    "Time": "10:00 PM",
+    "phone_number": "+201227945368",
+    "parent_phone": "+201148958279",
+    "current_course": "css",
+    "completed_courses": ["html"],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  {
+    "name": "مالك محمد",
+    "id": "AIWX4078", 
+    "age": "15",
+    "status": 1,
+    "type": "group",
+    "monthly_price": 500,
+    "Day": "Friday",
+    "Time": "07:00 PM",
+    "phone_number": "01142419134",
+    "parent_phone": "01100731205",
+    "current_course": "py",
+    "completed_courses": [],
+    "track": "AI Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  {
+    "name": "فارس عيادى",
+    "id": "AMWX7722",
+    "age": "13",
+    "status": 1,
+    "type": "Private",
+    "monthly_price": 500,
+    "Day": "Friday",
+    "Time": "08:00 PM",
+    "phone_number": "+201140026224",
+    "parent_phone": "+971508868623",
+    "current_course": "js",
+    "completed_courses": ["html", "css"],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  {
+    "name": "امل هانى",
+    "id": "AMWX9522",
+    "age": "17",
+    "status": 1,
+    "type": "group",
+    "monthly_price": 300,
+    "Day": "Tuesday",
+    "Time": "09:00 PM",
+    "phone_number": "+201151736522",
+    "parent_phone": "+201148158752",
+    "current_course": "js",
+    "completed_courses": ["html", "css"],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  
+  {
+    "name": "فريدة محمد",
+    "id": "AMAX9820",
+    "age": "15",
+    "status": 1,
+    "type": "group",
+    "monthly_price": 400,
+    "Day": "Tuesday",
+    "Time": "09:00 PM",
+    "phone_number": null,
+    "parent_phone": null,
+    "current_course": "html",
+    "completed_courses": [],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  {
+    "name": "سيف عبد النبى",
+    "id": "AEAX2400",
+    "age": "15",
+    "status": 1,
+    "type": "group",
+    "monthly_price": 0,
+    "Day": "Tuesday",
+    "Time": "09:00 PM",
+    "phone_number": "+201004055014",
+    "parent_phone": "01002654382",
+    "current_course": "html",
+    "completed_courses": [],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+  },
+  {
+   "name": "عبدالرحمن نبيل",
+    "id": "AMWX5555",
+    "age": "17",
+    "status": 1,
+    "type": "Private",
+    "monthly_price": 500,
+    "Day": "Friday",
+    "Time": "02:00 PM",
+    "phone_number": "+20 10 27754750",
+    "parent_phone": "+20 10 27754750",
+    "current_course": "css",
+    "completed_courses": ["html"],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"},
 
-  ]
+  { "name": "عمار ياسر",
+    "id": "AMWX4351",
+    "age": "13",
+    "status": 1,
+    "type": "group",
+    "monthly_price": 400,
+    "Day": "Friday",
+    "Time": "04:00 PM",
+    "phone_number": "+20 10 27754750",
+    "parent_phone": "+20 10 27754750",
+    "current_course": "css",
+    "completed_courses": ["html"],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"},
+  
+{ "name": "",
+    "id": "AMWX4351",
+    "age": "13",
+    "status": 1,
+    "type": "group",
+    "monthly_price": 400,
+    "Day": "Friday",
+    "Time": "04:00 PM",
+    "phone_number": "+20 10 27754750",
+    "parent_phone": "+20 10 27754750",
+    "current_course": "css",
+    "completed_courses": ["html"],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"}
+
+  
+
+
+
+
+
+
+]
+
+  
 }
