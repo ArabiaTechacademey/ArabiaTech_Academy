@@ -21,19 +21,19 @@
     "rank":"Level 1",
     "special":"Artificial Intelligence",
 "duration":"5 month",
-"link":"./Ai_tech/level1/level1.html"},
+"link":"./AI_tech/level1/level1.html"},
 
 "data":{"course_name":"Data Analysis",
     "rank":"Level 2",
     "special":"Artificial Intelligence",
 "duration":"5 month",
-"link":"./Ai_tech/level2.html"},
+"link":"./AI_tech/level2.html"},
 
 "Ma":{"course_name":"Machine Learning",
     "rank":"Level 3",
     "special":"Artificial Intelligence",
 "duration":"4 month",
-"link":"./Ai_tech/level2.html"},
+"link":"./AI_tech/level2.html"},
 
 
 "min":{"course_name":"Maincraft Education",
