@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArabiaTech - ملف الطالب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #f5c518;
+      --yellow-dark: #e0a800;
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --text: #222;
+      --muted: #666;
+      --green: #27ae60;
+      --bg: #ffffff;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      direction: rtl;
+      min-height: 100vh;
+    }
+
+    /* ══ NAVBAR ══ */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 36px; height: 58px;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-size: 1.45rem; font-weight: 900; color: var(--black); display: flex; align-items: center; }
+    .logo-badge { background: var(--yellow); border-radius: 6px; padding: 1px 7px; font-size: 1rem; margin-right: 3px; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: .9rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--yellow-dark); }
+    .btn-contact {
+      background: var(--yellow); color: var(--black); border: none;
+      padding: 8px 20px; border-radius: 8px;
+      font-family: 'Cairo', sans-serif; font-size: .9rem; font-weight: 700; cursor: pointer;
+    }
+    .btn-contact:hover { background: var(--yellow-dark); }
+
+    /* ══ PAGE ══ */
+    .page { margin: 20px 40px; }
+
+    /* ══ STATE BOX ══ */
+    .state-box { text-align: center; padding: 80px 20px; }
+    .state-box h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; color: var(--muted); }
+    .state-box.error h2 { color: #c0392b; }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 4px solid var(--border); border-top-color: var(--yellow-dark);
+      border-radius: 50%; animation: spin .8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ══ STUDENT INFO ══ */
+    .student-name { font-size: 1.85rem; font-weight: 900; margin-bottom: 16px; color: var(--yellow-dark); }
+    .student-name span { color: var(--black); }
+    .info-list { list-style: none; border-top: 1px solid var(--border); margin-bottom: 0; }
+    .info-list li {
+      padding: 9px 0; border-bottom: 1px dashed var(--border);
+      font-size: .95rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .info-list li::before { content: '•'; color: var(--yellow-dark); font-size: 1.1rem; }
+    .info-list li strong { color: var(--yellow-dark); margin-left: 4px; }
+
+    /* ══ SESSION COUNTDOWN ══ */
+    .session-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      animation: popIn .4s ease both;
+    }
+    .session-left { display: flex; flex-direction: column; gap: 4px; }
+    .session-label {
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .session-datetime {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .session-datetime .day-pill {
+      background: var(--yellow);
+      color: var(--black);
+      border-radius: 8px;
+      padding: 2px 10px;
+      font-size: .85rem;
+      font-weight: 900;
+    }
+    .session-status {
+      font-size: .78rem;
+      font-weight: 700;
+      margin-top: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      width: fit-content;
+    }
+    .status-upcoming { background: #fffbea; color: #b8860b; border: 1px solid #f5e6a0; }
+    .status-soon     { background: #fff3cd; color: #856404; border: 1px solid #ffc107; animation: pulseBadge 1s ease-in-out infinite; }
+    .status-now      { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; animation: pulseBadge .8s ease-in-out infinite; }
+
+    @keyframes pulseBadge {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .6; }
+    }
+
+    /* countdown blocks */
+    .countdown-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cd-block {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: 56px;
+      text-align: center;
+      padding: 7px 4px 5px;
+      transition: background .3s;
+    }
+    .cd-block.active { background: #fffbea; border-color: var(--yellow); }
+    .cd-num {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--black);
+      display: block;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .cd-lbl {
+      font-size: .65rem;
+      color: var(--muted);
+      font-weight: 600;
+      margin-top: 2px;
+      display: block;
+    }
+    .cd-sep {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    /* ══ TRACK SECTION ══ */
+    .track-section { margin-top: 36px; }
+    .track-title {
+      font-size: 1.2rem; font-weight: 900; text-align: right;
+      margin-bottom: 18px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ══ COURSE CARDS ══ */
+    .courses-row { display: flex; flex-wrap: wrap; gap: 16px; }
+
+    .course-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      width: 178px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      transition: transform .2s, box-shadow .2s;
+      animation: popIn .35s ease both;
+    }
+    .course-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+    .course-card:nth-child(1) { animation-delay: .05s; }
+    .course-card:nth-child(2) { animation-delay: .12s; }
+    .course-card:nth-child(3) { animation-delay: .19s; }
+    .course-card:nth-child(4) { animation-delay: .26s; }
+
+    /* ── Thumbnail ── */
+    .thumb {
+      height: 10px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 6px; color: white; position: relative; overflow: hidden;
+    }
+    .thumb-icon  { font-size: 2.6rem; }
+    .thumb-rank  {
+      font-size: .72rem; font-weight: 700;
+      background: rgba(0,0,0,.22); padding: 2px 10px; border-radius: 99px;
+    }
+
+    .bg-web-1 { background: linear-gradient(135deg,#e34c26,#f06529); }
+    .bg-web-2 { background: linear-gradient(135deg,#264de4,#2965f1); }
+    .bg-web-3 { background: linear-gradient(135deg,#b8860b,#f5c518); color:#333; }
+    .bg-web-3 .thumb-rank { color:#333; background:rgba(255,255,255,.4); }
+    .bg-ai-1  { background: linear-gradient(135deg,#3776ab,#4b97d1); }
+    .bg-ai-2  { background: linear-gradient(135deg,#6a0dad,#9b30d9); }
+    .bg-ai-3  { background: linear-gradient(135deg,#0d7377,#14a085); }
+    .bg-ai-4  { background: linear-gradient(135deg,#c0392b,#e74c3c); }
+    .bg-def   { background: linear-gradient(135deg,#888,#bbb); }
+
+    /* ── Course Body ── */
+    .course-body { padding: 12px 12px 14px; }
+    .course-cname { font-size: .9rem; font-weight: 900; color: var(--text); margin-bottom: 2px; }
+    .course-special { font-size: .72rem; color: var(--muted); margin-bottom: 2px; }
+    .course-duration { font-size: .72rem; color: var(--muted); margin-bottom: 10px; }
+
+    /* ── Buttons ── */
+    .btn-done {
+      display: block; width: 100%; text-align: center;
+      padding: 8px 0; border-radius: 8px; border: none;
+      font-family: 'Cairo', sans-serif; font-size: .85rem; font-weight: 700;
+      background: var(--yellow); color: var(--black); cursor: pointer;
+      text-decoration: none; transition: background .2s, transform .15s;
+    }
+    .btn-done:hover { background: var(--yellow-dark); transform: translateY(-1px); }
+    .btn-join {
+      display: block; width: 100%; text-align: center;
+      padding: 8px 0; border-radius: 8px; border: none;
+      font-family: 'Cairo', sans-serif; font-size: .85rem; font-weight: 700;
+      background: var(--yellow); color: var(--black); cursor: pointer;
+      text-decoration: none; transition: background .2s, transform .15s;
+    }
+    .btn-join:hover { background: var(--yellow-dark); transform: translateY(-1px); }
+    .btn-join:disabled,
+    .btn-join.locked {
+      background: #e8e8e8; color: #aaa; cursor: not-allowed;
+      pointer-events: none; transform: none;
+    }
+
+    .btn-meeting--disabled {
+      opacity: .45; cursor: not-allowed; pointer-events: none;
+      box-shadow: none; transform: none !important;
+    }
+    .meeting-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .meeting-msg {
+      font-size: .78rem; font-weight: 700; color: #c0392b;
+      background: #fdf0ee; border: 1px solid #f5c6c0;
+      border-radius: 8px; padding: 6px 12px; text-align: center;
+      animation: fadeUp .3s ease both;
+    }
+
+    /* ══ SUBSCRIPTION INFO CARD ══ */
+    .sub-info-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .sub-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: 99px;
+      font-size: .8rem; font-weight: 700;
+    }
+    .sub-badge.fardi  { background: #e8f4fd; color: #1a6fa8; border: 1px solid #b8d9f0; }
+    .sub-badge.group  { background: #f0eafd; color: #6a0dad; border: 1px solid #d0b8f0; }
+    .sub-divider { color: var(--border); font-size: 1.1rem; }
+    .sub-price-text {
+      font-size: .85rem; font-weight: 700; color: var(--text);
+    }
+    .sub-price-text strong { color: var(--yellow-dark); }
+
+    /* payment due banner */
+    .payment-banner {
+      margin-top: 10px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px;
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 12px;
+      font-size: .88rem; font-weight: 700; color: #7a5800;
+      animation: fadeUp .4s ease both;
+    }
+    .payment-banner .pay-icon { font-size: 1.3rem; }
+    .payment-banner .pay-amount { color: #c0392b; font-size: 1rem; }
+
+    /* ══ RENEWAL BUTTON ══ */
+    .btn-renew {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; border-radius: 10px; border: 2px solid #27ae60;
+      font-family: 'Cairo', sans-serif; font-size: .92rem; font-weight: 700;
+      background: #ffffff; color: #27ae60;
+      cursor: pointer; text-decoration: none;
+      transition: background .2s, color .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 2px 8px rgba(39,174,96,.15);
+    }
+    .btn-renew:hover {
+      background: #27ae60; color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(39,174,96,.35);
+    }
+
+    /* ══ ACTION BUTTONS ROW ══ */
+    .action-row {
+      display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;
+    }
+
+    .btn-meeting {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; border-radius: 10px; border: none;
+      font-family: 'Cairo', sans-serif; font-size: .92rem; font-weight: 700;
+      background: var(--yellow); color: var(--black);
+      cursor: pointer; text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 2px 8px rgba(245,197,24,.35);
+    }
+    .btn-meeting:hover {
+      background: var(--yellow-dark); transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(224,168,0,.4);
+    }
+
+    .tools-wrapper { position: relative; }
+    .btn-tools {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; border-radius: 10px;
+      border: 2px solid var(--border);
+      font-family: 'Cairo', sans-serif; font-size: .92rem; font-weight: 700;
+      background: var(--white); color: var(--text); cursor: pointer;
+      transition: border-color .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-tools:hover {
+      border-color: var(--yellow-dark); transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0,0,0,.08);
+    }
+    .btn-tools .arrow { font-size: .7rem; transition: transform .25s; display: inline-block; }
+    .btn-tools.open .arrow { transform: rotate(180deg); }
+
+    .dropdown {
+      display: none; position: absolute; top: calc(100% + 8px); right: 0;
+      min-width: 200px; background: var(--white);
+      border: 1px solid var(--border); border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.13);
+      overflow: hidden; z-index: 200; animation: dropIn .2s ease both;
+    }
+    .dropdown.show { display: block; }
+    .dropdown a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 18px; text-decoration: none;
+      color: var(--text); font-size: .9rem; font-weight: 600;
+      transition: background .15s; border-bottom: 1px solid #f0f0f0;
+    }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { background: #fffbea; color: var(--yellow-dark); }
+    .dropdown a .di { font-size: 1.1rem; }
+
+    /* ══ ANIMATIONS ══ */
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(.93) translateY(12px); }
+      to   { opacity: 1; transform: scale(1)   translateY(0); }
+    }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <div class="logo">ArabiaTech</div>
+
+  <button class="btn-contact">تواصل معنا</button>
+</nav>
+
+<!-- ══ PAGE ══ -->
+<div class="page">
+  <div id="studentHeader"></div>
+  <div id="sessionSection" style="display:none"></div>
+  <div id="trackSection" style="display:none"></div>
+</div>
+
+<script>
+  /* ══ Auth check ══ */
+  const studentId = sessionStorage.getItem('loggedStudentId');
+  if (!studentId) {
+    window.location.href = 'login.html';
+  }
+  const id = studentId;
+
+  /* ══ Tools dropdown ══ */
+  function toggleTools() {
+    const btn      = document.getElementById('toolsBtn');
+    const dropdown = document.getElementById('toolsDropdown');
+    btn.classList.toggle('open');
+    dropdown.classList.toggle('show');
+  }
+  document.addEventListener('click', e => {
+    const wrapper = document.querySelector('.tools-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+      const btn      = document.getElementById('toolsBtn');
+      const dropdown = document.getElementById('toolsDropdown');
+      if (btn)      btn.classList.remove('open');
+      if (dropdown) dropdown.classList.remove('show');
+    }
+  });
+
+  /* ══ Visual config per course key ══ */
+  const THUMB_CFG = {
+    "HTML": { icon: "🌐", bg: "bg-web-1" },
+    "CSS":  { icon: "🎨", bg: "bg-web-2" },
+    "JS":   { icon: "⚡", bg: "bg-web-3" },
+    "Py":   { icon: "🐍", bg: "bg-ai-1"  },
+    "GUI":  { icon: "🖥️", bg: "bg-ai-2"  },
+    "data": { icon: "📊", bg: "bg-ai-3"  },
+    "Ma":   { icon: "🤖", bg: "bg-ai-4"  },
+  };
+
+  /* ══ Match course key ══ */
+  function matchCourseKey(raw, coursesDB) {
+    if (coursesDB[raw]) return raw;
+    const up = raw.toUpperCase();
+    for (const k of Object.keys(coursesDB)) {
+      if (k.toUpperCase() === up) return k;
+    }
+    for (const k of Object.keys(coursesDB)) {
+      if (k.toUpperCase().includes(up) || up.includes(k.toUpperCase())) return k;
+    }
+    return null;
+  }
+
+  /* ══ Countdown helpers ══ */
+  const DAY_AR = {
+    Sunday:'الأحد', Monday:'الاثنين', Tuesday:'الثلاثاء',
+    Wednesday:'الأربعاء', Thursday:'الخميس', Friday:'الجمعة', Saturday:'السبت'
+  };
+  const DAYS_ORDER = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  function getNextSession(dayEn, timeStr) {
+    const [timePart, period] = timeStr.split(' ');
+    let [h, m] = timePart.split(':').map(Number);
+    if (period === 'PM' && h !== 12) h += 12;
+    if (period === 'AM' && h === 12) h = 0;
+    const now = new Date();
+    const targetDay = DAYS_ORDER.indexOf(dayEn);
+    let diff = (targetDay - now.getDay() + 7) % 7;
+    const next = new Date(now);
+    next.setDate(now.getDate() + diff);
+    next.setHours(h, m, 0, 0);
+    if (next <= now) next.setDate(next.getDate() + 7);
+    return next;
+  }
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function startCountdown(dayEn, timeStr) {
+    let target = getNextSession(dayEn, timeStr);
+
+    function tick() {
+      const now  = new Date();
+      const diff = target - now;
+
+      const statusEl = document.getElementById('cd-status');
+      const dEl = document.getElementById('cd-d');
+      const hEl = document.getElementById('cd-h');
+      const mEl = document.getElementById('cd-m');
+      const sEl = document.getElementById('cd-s');
+      const blocks = document.querySelectorAll('.cd-block');
+
+      if (diff <= 0) {
+        statusEl.className = 'session-status status-now';
+        statusEl.textContent = '🟢 الحصة الآن!';
+        [dEl, hEl, mEl, sEl].forEach(el => { if(el) el.textContent = '00'; });
+        setTimeout(() => {
+          target = getNextSession(dayEn, timeStr);
+          tick();
+        }, 60000);
+        return;
+      }
+
+      const days = Math.floor(diff / 86400000);
+      const hrs  = Math.floor((diff % 86400000) / 3600000);
+      const mins = Math.floor((diff % 3600000) / 60000);
+      const secs = Math.floor((diff % 60000) / 1000);
+
+      if (dEl) dEl.textContent = pad(days);
+      if (hEl) hEl.textContent = pad(hrs);
+      if (mEl) mEl.textContent = pad(mins);
+      if (sEl) sEl.textContent = pad(secs);
+
+      blocks.forEach((b, i) => {
+        b.classList.remove('active');
+        if (days === 0 && i === 0) return;
+        if (days === 0 && hrs === 0 && i === 1) return;
+        if (days === 0 && hrs === 0 && mins < 30) b.classList.add('active');
+      });
+
+      if (statusEl) {
+        if (days === 0 && hrs === 0 && mins < 30) {
+          statusEl.className = 'session-status status-soon';
+          statusEl.textContent = '⚡ قريباً جداً';
+        } else {
+          statusEl.className = 'session-status status-upcoming';
+          statusEl.textContent = '📅 الحصة القادمة';
+        }
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  /* ══ Init ══ */
+  const headerEl  = document.getElementById('studentHeader');
+  const sessionEl = document.getElementById('sessionSection');
+  const trackEl   = document.getElementById('trackSection');
+
+  headerEl.innerHTML = `<div class="state-box"><div class="spinner"></div><h2>جارٍ تحميل البيانات…</h2></div>`;
+
+  Promise.all([
+    fetch('data.json').then(r => { if (!r.ok) throw new Error('data.json'); return r.json(); }),
+    fetch('courses.json').then(r => { if (!r.ok) throw new Error('courses.json'); return r.json(); })
+  ])
+  .then(([data, courses]) => {
+    const student = data.students.find(s => s.id === studentId);
+    if (!student) {
+      headerEl.innerHTML = `
+        <div class="state-box error">
+          <div style="font-size:2.5rem">🔍</div>
+          <h2>طالب غير موجود</h2>
+          <p style="color:var(--muted)">الرقم التعريفي <strong>${studentId}</strong> غير مسجل.</p>
+        </div>`;
+      return;
+    }
+    render(student, courses);
+  })
+  .catch(() => {
+    headerEl.innerHTML = `
+      <div class="state-box error">
+        <div style="font-size:2.5rem">⚠️</div>
+        <h2>تعذّر تحميل البيانات</h2>
+        <p style="color:var(--muted)">تأكد من وجود <strong>data.json</strong> و <strong>courses.json</strong> بجانب الصفحة.</p>
+      </div>`;
+  });
+
+  /* ══ Render ══ */
+  function render(s, courses) {
+    const isActive = s.status === 1;
+
+    /* ── Build meeting button based on status ── */
+    let meetingHtml;
+    if (isActive) {
+      /* status 1 → link from student's JSON "link" field */
+      const meetLink = s.link || './meeting.html';
+      meetingHtml = `<a class="btn-meeting" href="${meetLink}" target="_blank" rel="noopener noreferrer">🎥 الانضمام إلى الاجتماع</a>`;
+    } else {
+      /* status 0 → show renewal button instead */
+      meetingHtml = `
+        <a class="btn-renew" href="https://forms.gle/dCyxeR7mvH9L764E7">
+          🔄 تجديد الاشتراك
+        </a>
+        <p class="meeting-msg">⚠️ اشتراكك منتهٍ، يرجى التجديد للمتابعة</p>`;
+    }
+
+    /* ── Subscription helpers ── */
+    const typeLabel = s.type || '';
+    const isFardi   = typeLabel === 'فردي';
+    const price     = s.monthly_price || 0;
+
+    const subBadgeHtml = typeLabel
+      ? `<span class="sub-badge ${isFardi ? 'fardi' : 'group'}">${isFardi ? '👤' : '👥'} ${typeLabel}</span>`
+      : '';
+
+    const priceHtml = price
+      ? `<span class="sub-divider">|</span>
+         <span class="sub-price-text">الاشتراك الشهري: <strong>${price.toLocaleString('ar-EG')} ج.م</strong></span>`
+      : '';
+
+    const subInfoHtml = (subBadgeHtml || priceHtml)
+      ? `<div class="sub-info-card">${subBadgeHtml}${priceHtml}</div>`
+      : '';
+
+    const paymentBannerHtml = price
+      ? `<div class="payment-banner">
+           <span class="pay-icon">💳</span>
+           <span>المطلوب دفعه: <span class="pay-amount">${price.toLocaleString('ar-EG')} ج.م</span> شهرياً</span>
+         </div>`
+      : '';
+
+    /* ── Personal info ── */
+    headerEl.innerHTML = `
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+        <div style="flex:1; min-width:260px;">
+          <h2 class="student-name"><span>أسم الطالب/ة :</span> ${s.name}</h2>
+          <ul class="info-list">
+            <li><strong>كود الطالب :</strong> ${s.id}</li>
+            <li><strong>سن الطالب :</strong> ${s.age} عام</li>
+            <li><strong>رقم التواصل :</strong> ${s.phone_number}</li>
+          </ul>
+          ${subInfoHtml}
+          ${paymentBannerHtml}
+        </div>
+        <div class="action-row">
+          <div class="meeting-wrap">
+            ${meetingHtml}
+          </div>
+          <div class="tools-wrapper">
+           
+          </div>
+        </div>
+      </div>`;
+
+    /* ── Session countdown ── */
+    if (s.Day && s.Time) {
+      sessionEl.style.display = 'block';
+      sessionEl.innerHTML = `
+        <div class="session-card">
+          <div class="session-left">
+            <div class="session-label">موعد الحصة</div>
+            <div class="session-datetime">
+              <span class="day-pill">${DAY_AR[s.Day] || s.Day}</span>
+              <span>${s.Time}</span>
+            </div>
+            <span class="session-status status-upcoming" id="cd-status">📅 الحصة القادمة</span>
+          </div>
+          <div class="countdown-row">
+            <div class="cd-block"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">يوم</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-block"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl">ساعة</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-block"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl">دقيقة</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-block"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl">ثانية</span></div>
+          </div>
+        </div>`;
+      startCountdown(s.Day, s.Time);
+    }
+
+    /* ── Build course list ── */
+    const done = s.completed_courses || [];
+    const allCourses = [...done];
+    if (isActive && s.current_course) allCourses.push(s.current_course);
+    if (!allCourses.length) return;
+
+    const groups = {};
+    allCourses.forEach(raw => {
+      const key  = matchCourseKey(raw, courses);
+      const info = key ? courses[key] : null;
+      const spec = info ? info.special : "أخرى";
+      if (!groups[spec]) groups[spec] = [];
+      groups[spec].push({ raw, key, info });
+    });
+
+    trackEl.style.display = 'block';
+    trackEl.innerHTML = '';
+
+    Object.entries(groups).forEach(([spec, items]) => {
+      const section = document.createElement('div');
+      section.className = 'track-section';
+      section.innerHTML = `<div class="track-title">مسار ${
+        spec === 'Web development'       ? 'تصميم المواقع' :
+        spec === 'Artificial Intelligence'? 'الذكاء الاصطناعي' : spec
+      }</div>`;
+
+      const row = document.createElement('div');
+      row.className = 'courses-row';
+
+      items.forEach(({ raw, key, info }) => {
+        const isDone    = done.map(d => d.toUpperCase()).includes(raw.toUpperCase());
+        const isCurrent = isActive && raw.toUpperCase() === (s.current_course || '').toUpperCase();
+        const cfg       = THUMB_CFG[key] || { icon: '📚', bg: 'bg-def' };
+
+        const card = document.createElement('div');
+        card.className = 'course-card';
+
+        let btnHtml;
+        if (isDone && info) {
+          btnHtml = `<a class="btn-done" href="${info.link}">مكتمل ✅</a>`;
+        } else if (isCurrent && info) {
+          btnHtml = `<a class="btn-join" href="${info.link}">الانضمام</a>`;
+        } else {
+          btnHtml = `<span class="btn-join locked">قريباً 🔒</span>`;
+        }
+
+        card.innerHTML = `
+          <div class="thumb ${cfg.bg}">
+            <div class="thumb-rank">${info ? info.rank : raw}</div>
+          </div>
+          <div class="course-body">
+            <div class="course-cname">${info ? info.course_name : raw}</div>
+            <div class="course-special">${info ? info.special : ''}</div>
+            <div class="course-duration">⏱ ${info ? info.duration : ''}</div>
+            ${btnHtml}
+          </div>`;
+
+        row.appendChild(card);
+      });
+
+      section.appendChild(row);
+      trackEl.appendChild(section);
+    });
+  }
+</script>
+</body>
+</html>

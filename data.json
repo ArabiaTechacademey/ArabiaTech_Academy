@@ -1,0 +1,53 @@
+{
+  "students": [
+{
+  "name": "عبدالله معاذ",
+  "id": "AMAX4958",
+  "age": "17",
+  "status": 1,
+  "type": "group",
+  "monthly_price": 400,
+  "Day": "Thursday",
+  "Time": "09:00 PM",
+  "phone_number": "+201030727091",
+  "parent_phone": "+201060055537",
+  "current_course": "data",
+  "completed_courses": ["css"],
+  "track": "AI Track",
+  "link": "https://meet.google.com/ejz-cxsp-hdb"
+},
+    {
+  "name": "زياد احمد",
+  "id": "AMWX4378",
+  "age": "17",
+  "status": 1,
+  "type": "group",
+  "monthly_price": 400,
+   "Day": "Thursday",
+  "Time": "09:00 PM",
+  "phone_number": "+201151544072",
+  "parent_phone": "+201024544540",
+   "current_course": "data",
+  "completed_courses": ["py"],
+  "track": "AI Track",
+  "link": "https://meet.google.com/ejz-cxsp-hdb"
+},
+{
+  "name": "مزن ولاء",
+  "id": "AMAX7461",
+   "age": "15",
+  "status": 1,
+  "type": "group",
+  "monthly_price": 400,
+  "Day": "4",
+  "Time": "02:00 PM",
+  "phone_number": "+201205658715",
+  "parent_phone": "+201148958279",
+  "current_course": "data",
+  "completed_courses": ["py"],
+  "track": "AI Track",
+  "link": "https://meet.google.com/ejz-cxsp-hdb"
+}
+
+  ]
+}

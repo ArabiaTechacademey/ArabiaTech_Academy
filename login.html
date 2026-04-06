@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArabiaTech - تسجيل الدخول</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #f5c518;
+      --yellow-dark: #e0a800;
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --text: #222;
+      --muted: #888;
+      --red: #e74c3c;
+      --bg: #ffffff;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ══ NAVBAR ══ */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      height: 58px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.45rem; font-weight: 900; color: var(--black); display: flex; align-items: center; }
+    .logo-badge {
+      background: var(--yellow); border-radius: 6px;
+      padding: 1px 7px; font-size: 1rem; margin-right: 3px;
+    }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: .9rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--yellow-dark); }
+    .btn-contact {
+      background: var(--yellow); color: var(--black); border: none;
+      padding: 8px 20px; border-radius: 8px;
+      font-family: 'Cairo', sans-serif; font-size: .9rem; font-weight: 700; cursor: pointer;
+    }
+    .btn-contact:hover { background: var(--yellow-dark); }
+
+    /* ══ CENTER LAYOUT ══ */
+    .center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* ══ LOGIN CARD ══ */
+    .login-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 44px 40px 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 4px 32px rgba(0,0,0,.08);
+      animation: fadeUp .4s ease both;
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .login-logo .brand {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--black);
+    }
+    .login-logo .brand span {
+      background: var(--yellow);
+      border-radius: 6px;
+      padding: 1px 8px;
+      font-size: 1.1rem;
+      margin-right: 3px;
+    }
+    .login-logo p {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-top: 6px;
+    }
+
+    /* divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 -40px 28px;
+    }
+
+    /* label */
+    .field-label {
+      display: block;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    /* input */
+    .field-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Cairo', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      direction: ltr;
+      text-align: right;
+    }
+    .field-input:focus {
+      border-color: var(--yellow-dark);
+      box-shadow: 0 0 0 3px rgba(224,168,0,.15);
+    }
+    .field-input.error {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(231,76,60,.1);
+    }
+
+    /* error message */
+    .error-msg {
+      display: none;
+      color: var(--red);
+      font-size: .82rem;
+      font-weight: 600;
+      margin-top: 8px;
+      align-items: center;
+      gap: 5px;
+    }
+    .error-msg.show { display: flex; }
+
+    /* submit button */
+    .btn-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px;
+      margin-top: 24px;
+      background: var(--yellow);
+      color: var(--black);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-login:hover {
+      background: var(--yellow-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(224,168,0,.35);
+    }
+    .btn-login:active { transform: translateY(0); }
+    .btn-login:disabled {
+      background: #e0e0e0;
+      color: var(--muted);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* spinner inside button */
+    .btn-spinner {
+      width: 18px; height: 18px;
+      border: 3px solid rgba(0,0,0,.2);
+      border-top-color: var(--black);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: none;
+    }
+    .btn-login.loading .btn-spinner { display: block; }
+    .btn-login.loading .btn-text   { opacity: .5; }
+
+    /* success state */
+    .success-box {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 16px;
+      background: rgba(39,174,96,.08);
+      border: 1px solid rgba(39,174,96,.3);
+      border-radius: 10px;
+      color: #27ae60;
+      font-weight: 700;
+      font-size: .92rem;
+      text-align: center;
+    }
+    .success-box.show { display: flex; }
+    .success-icon { font-size: 2rem; }
+
+    /* hint */
+    .hint {
+      margin-top: 20px;
+      text-align: center;
+      font-size: .78rem;
+      color: var(--muted);
+    }
+    .hint strong { color: var(--yellow-dark); }
+
+    /* ══ ANIMATIONS ══ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* shake on error */
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-5px); }
+      80%      { transform: translateX(5px); }
+    }
+    .shake { animation: shake .4s ease; }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <div class="logo">ArabiaTech<span class="logo-badge">i</span></div>
+  <ul class="nav-links">
+    <li><a href="#">الصفحة الرئيسيه</a></li>
+    <li><a href="#">كورسات</a></li>
+    <li><a href="#">لماذا أرابيا تك</a></li>
+    <li><a href="#">من نحن</a></li>
+  </ul>
+  <button class="btn-contact">تواصل معنا</button>
+</nav>
+
+<!-- ══ LOGIN ══ -->
+<div class="center">
+  <div class="login-card">
+
+    <div class="login-logo">
+      <div class="brand">ArabiaTech<span>i</span></div>
+      <p>أدخل كود الطالب للدخول إلى ملفك الشخصي</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <label class="field-label" for="studentId">🪪 كود الطالب</label>
+    <input
+      class="field-input"
+      id="studentId"
+      type="text"
+      placeholder="مثال: AWER1135"
+      autocomplete="off"
+      spellcheck="false"
+    />
+
+    <div class="error-msg" id="errorMsg">
+      <span>⚠️</span>
+      <span id="errorText">كود الطالب غير صحيح، حاول مرة أخرى.</span>
+    </div>
+
+    <button class="btn-login" id="loginBtn" onclick="handleLogin()">
+      <div class="btn-spinner"></div>
+      <span class="btn-text">دخول ←</span>
+    </button>
+
+    <div class="success-box" id="successBox">
+      <span class="success-icon">✅</span>
+      <span id="successText">تم التحقق! جارٍ التحويل…</span>
+    </div>
+
+    <p class="hint">الكود الخاص بك موجود في رسالة التسجيل.<br/>للمساعدة تواصل مع <strong>ArabiaTech</strong></p>
+
+  </div>
+</div>
+
+<script>
+  const input      = document.getElementById('studentId');
+  const btn        = document.getElementById('loginBtn');
+  const errorMsg   = document.getElementById('errorMsg');
+  const errorText  = document.getElementById('errorText');
+  const successBox = document.getElementById('successBox');
+  const successTxt = document.getElementById('successText');
+
+  /* allow Enter key */
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
+
+  /* clear error on type */
+  input.addEventListener('input', () => {
+    input.classList.remove('error');
+    errorMsg.classList.remove('show');
+    successBox.classList.remove('show');
+  });
+
+  function handleLogin() {
+    const id = input.value.trim().toUpperCase();
+
+    if (!id) {
+      showError('من فضلك أدخل كود الطالب أولاً.');
+      return;
+    }
+
+    /* loading state */
+    setLoading(true);
+
+    /* ── Fetch data.json and check ── */
+    fetch('data.json')
+      .then(res => {
+        if (!res.ok) throw new Error('network');
+        return res.json();
+      })
+      .then(data => {
+        const student = data.students.find(s => s.id === id);
+
+        if (!student) {
+          setLoading(false);
+          showError('كود الطالب غير موجود، تأكد من الكود وحاول مرة أخرى.');
+          return;
+        }
+
+        /* ✅ Found — show success then redirect */
+        setLoading(false);
+        input.classList.remove('error');
+        errorMsg.classList.remove('show');
+
+        successTxt.textContent = `أهلاً ${student.name}! جارٍ التحويل…`;
+        successBox.classList.add('show');
+        btn.disabled = true;
+
+        setTimeout(() => {
+          sessionStorage.setItem('loggedStudentId', student.id);
+window.location.href = 'student_profile.html';
+        }, 1400);
+      })
+      .catch(() => {
+        setLoading(false);
+        showError('تعذّر الاتصال بقاعدة البيانات، تأكد من وجود ملف data.json.');
+      });
+  }
+
+  function showError(msg) {
+    errorText.textContent = msg;
+    input.classList.add('error');
+    errorMsg.classList.add('show');
+    /* shake the card */
+    input.classList.remove('shake');
+    void input.offsetWidth; // reflow
+    input.classList.add('shake');
+  }
+
+  function setLoading(on) {
+    btn.disabled = on;
+    btn.classList.toggle('loading', on);
+  }
+</script>
+</body>
+</html>
