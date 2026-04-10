@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مواعيد الطلاب</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2333;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #e8eaf2;
+    --muted: #7a80a0;
+    --accent: #4f8ef7;
+    --accent2: #38c98e;
+    --gold: #f0b840;
+    --red: #e05c5c;
+    --ai-color: #4f8ef7;
+    --web-color: #38c98e;
+    --private-color: #f0b840;
+  }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .top-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .top-bar h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+  .top-bar h1 span { color: var(--accent); }
+  .top-bar .subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .live-dot { width: 8px; height: 8px; background: var(--accent2); border-radius: 50%; display: inline-block; margin-left: 6px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* STATS */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-item {
+    background: var(--surface);
+    padding: 1.1rem 1.5rem;
+    text-align: center;
+  }
+  .stat-num { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; }
+  .stat-lbl { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* FILTERS */
+  .filters-wrap {
+    padding: 1rem 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filters-wrap label { font-size: 12px; color: var(--muted); margin-left: 4px; }
+  .filter-btn {
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .filter-btn.active.web { background: var(--web-color); border-color: var(--web-color); }
+  .filter-btn.active.gold { background: var(--gold); border-color: var(--gold); color: #1a1a1a; }
+
+  /* SEARCH */
+  .search-wrap { margin-right: auto; }
+  .search-wrap input {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    width: 200px;
+    outline: none;
+    direction: rtl;
+  }
+  .search-wrap input::placeholder { color: var(--muted); }
+  .search-wrap input:focus { border-color: var(--accent); }
+
+  /* MAIN CONTENT */
+  .main { padding: 1.5rem 2rem 3rem; }
+
+  /* DAY SECTION */
+  .day-section { margin-bottom: 2.5rem; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .day-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .day-line { flex: 1; height: 1px; background: var(--border); }
+  .day-count {
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2px 8px;
+  }
+
+  /* TIME GROUP */
+  .time-group { margin-bottom: 1rem; }
+  .time-label {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    direction: ltr;
+    text-align: left;
+  }
+  .time-label::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    position: relative;
+    transition: border-color 0.2s, transform 0.15s;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--track-color, var(--border));
+    border-radius: 0 12px 12px 0;
+  }
+  .card.ai-track { --track-color: var(--ai-color); }
+  .card.web-track { --track-color: var(--web-color); }
+  .card.private-type { border-color: rgba(240,184,64,0.3); }
+  .card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+  /* CARD HEADER */
+  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .avatar.ai { background: rgba(79,142,247,0.15); color: var(--ai-color); }
+  .avatar.web { background: rgba(56,201,142,0.15); color: var(--web-color); }
+
+  .card-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .card-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .private-badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    font-size: 10px; font-weight: 700;
+    background: rgba(240,184,64,0.15);
+    color: var(--gold);
+    border: 1px solid rgba(240,184,64,0.3);
+    border-radius: 6px;
+    padding: 2px 7px;
+  }
+
+  /* CARD BODY */
+  .card-body { display: flex; flex-direction: column; gap: 6px; }
+  .card-row {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px;
+  }
+  .card-row .lbl { color: var(--muted); }
+  .card-row .val { color: var(--text); font-weight: 500; direction: ltr; text-align: left; }
+
+  .course-pill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .course-py  { background: rgba(56,201,142,0.15); color: #38c98e; }
+  .course-html{ background: rgba(224,92,92,0.15);  color: #e05c5c; }
+  .course-css { background: rgba(240,184,64,0.15); color: var(--gold); }
+  .course-js  { background: rgba(79,142,247,0.15); color: var(--ai-color); }
+  .course-data{ background: rgba(180,100,240,0.15);color: #b464f0; }
+
+  .completed-chips { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+  .chip {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  /* PRICE */
+  .price-free { color: var(--red); font-weight: 700; }
+  .price-normal { color: var(--accent2); }
+
+  /* LINK BUTTON */
+  .link-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 7px;
+    border-radius: 8px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.15s;
+    width: 100%;
+    text-align: center;
+  }
+  .link-btn:hover { background: rgba(79,142,247,0.1); border-color: var(--accent); }
+  .link-btn svg { flex-shrink: 0; }
+
+  /* DIVIDER */
+  .card-divider { height: 1px; background: var(--border); margin: 8px 0; }
+
+  /* NO RESULTS */
+  .no-results { text-align: center; padding: 4rem; color: var(--muted); font-size: 14px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .top-bar { padding: 1rem; }
+    .main { padding: 1rem; }
+    .filters-wrap { padding: 0.75rem 1rem; }
+    .search-wrap input { width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div>
+    <h1><span class="live-dot"></span> لوحة <span>المواعيد</span></h1>
+    <div class="subtitle">مقروءة من data.json</div>
+  </div>
+</div>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat-item"><div class="stat-num" id="st-total">—</div><div class="stat-lbl">إجمالي الطلاب</div></div>
+  <div class="stat-item"><div class="stat-num" id="st-private">—</div><div class="stat-lbl">حصص خاصة</div></div>
+  <div class="stat-item"><div class="stat-num" id="st-revenue">—</div><div class="stat-lbl">الدخل الشهري (ج)</div></div>
+  <div class="stat-item"><div class="stat-num" id="st-days">—</div><div class="stat-lbl">أيام الأسبوع</div></div>
+</div>
+
+<div class="filters-wrap">
+  <label>تصفية:</label>
+  <div id="filterBtns"></div>
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="ابحث باسم الطالب..." oninput="render()" />
+  </div>
+</div>
+
+<div class="main" id="mainContent"></div>
+
+<script>
+const DAY_ORDER = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const DAY_AR = {Monday:"الاثنين",Tuesday:"الثلاثاء",Wednesday:"الأربعاء",Thursday:"الخميس",Friday:"الجمعة",Saturday:"السبت",Sunday:"الأحد"};
+const COURSE_COLORS = {py:"course-py",html:"course-html",css:"course-css",js:"course-js",data:"course-data"};
+
+let allStudents = [];
+let activeFilter = "all";
+
+function getInitials(name) {
+  const p = name.trim().split(" ");
+  return p.length >= 2 ? p[0][0] + p[1][0] : p[0].slice(0,2);
+}
+
+function toMinutes(timeStr) {
+  const m = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (!m) return 0;
+  let h = parseInt(m[1]) % 12;
+  if (m[3].toUpperCase() === "PM") h += 12;
+  return h * 60 + parseInt(m[2]);
+}
+
+function flattenStudents(raw) {
+  const result = [];
+  function walk(item) {
+    if (Array.isArray(item)) item.forEach(walk);
+    else if (item && typeof item === "object" && item.name) result.push(item);
+  }
+  walk(raw.students || raw);
+  return result;
+}
+
+function renderStats(students) {
+  document.getElementById("st-total").textContent = students.length;
+  document.getElementById("st-private").textContent = students.filter(s=>s.type==="Private").length;
+  document.getElementById("st-revenue").textContent = students.reduce((a,s)=>a+(s.monthly_price||0),0).toLocaleString();
+  document.getElementById("st-days").textContent = new Set(students.map(s=>s.Day)).size;
+}
+
+function renderFilters() {
+  const days = [...new Set(allStudents.map(s=>s.Day))].sort((a,b)=>DAY_ORDER.indexOf(a)-DAY_ORDER.indexOf(b));
+  const defs = [
+    {v:"all", l:"الكل", cls:""},
+    ...days.map(d=>({v:d, l:DAY_AR[d]||d, cls:""})),
+    {v:"AI Track", l:"AI Track", cls:""},
+    {v:"Web Track", l:"Web Track", cls:"web"},
+    {v:"Private", l:"خاص", cls:"gold"},
+  ];
+  document.getElementById("filterBtns").innerHTML = defs.map(d=>
+    `<button class="filter-btn${activeFilter===d.v?" active "+d.cls:""}" onclick="setFilter('${d.v}')">${d.l}</button>`
+  ).join(" ");
+}
+
+function setFilter(f) { activeFilter = f; render(); }
+window.setFilter = setFilter;
+
+function render() {
+  const search = (document.getElementById("searchInput")?.value||"").trim().toLowerCase();
+
+  let students = allStudents.filter(s=>{
+    if (activeFilter !== "all") {
+      if (activeFilter === "AI Track" || activeFilter === "Web Track") {
+        if (s.track !== activeFilter) return false;
+      } else if (activeFilter === "Private") {
+        if (s.type !== "Private") return false;
+      } else {
+        if (s.Day !== activeFilter) return false;
+      }
+    }
+    if (search && !s.name.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  renderStats(students);
+  renderFilters();
+
+  if (!students.length) {
+    document.getElementById("mainContent").innerHTML = '<div class="no-results">لا يوجد طلاب مطابقون للبحث</div>';
+    return;
+  }
+
+  // Group by day
+  const byDay = {};
+  students.forEach(s => {
+    if (!byDay[s.Day]) byDay[s.Day] = {};
+    if (!byDay[s.Day][s.Time]) byDay[s.Day][s.Time] = [];
+    byDay[s.Day][s.Time].push(s);
+  });
+
+  const sortedDays = Object.keys(byDay).sort((a,b)=>DAY_ORDER.indexOf(a)-DAY_ORDER.indexOf(b));
+
+  document.getElementById("mainContent").innerHTML = sortedDays.map(day => {
+    const timeGroups = byDay[day];
+    const sortedTimes = Object.keys(timeGroups).sort((a,b)=>toMinutes(a)-toMinutes(b));
+
+    const timeHTML = sortedTimes.map(time => {
+      const ss = timeGroups[time];
+      const cardsHTML = ss.map(s => {
+        const isAI = s.track === "AI Track";
+        const isPrivate = s.type === "Private";
+        const avClass = isAI ? "ai" : "web";
+        const trackClass = isAI ? "ai-track" : "web-track";
+        const privateClass = isPrivate ? " private-type" : "";
+        const price = s.monthly_price === 0
+          ? `<span class="price-free">مجاني</span>`
+          : `<span class="price-normal">${s.monthly_price} ج</span>`;
+        const phone = s.phone_number || "—";
+        const completed = s.completed_courses && s.completed_courses.length
+          ? s.completed_courses.map(c=>`<span class="chip">${c.toUpperCase()}</span>`).join("")
+          : `<span class="chip">—</span>`;
+        const courseColor = COURSE_COLORS[s.current_course] || "";
+        const link = (s.link||"").trim();
+
+        return `
+          <div class="card ${trackClass}${privateClass}">
+            ${isPrivate ? '<div class="private-badge">خاص</div>' : ""}
+            <div class="card-head">
+              <div class="avatar ${avClass}">${getInitials(s.name)}</div>
+              <div>
+                <div class="card-name">${s.name}</div>
+                <div class="card-meta">${s.id} · ${s.age} سنة · ${s.track}</div>
+              </div>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-body">
+              <div class="card-row">
+                <span class="lbl">الكورس الحالي</span>
+                <span class="val"><span class="course-pill ${courseColor}">${s.current_course.toUpperCase()}</span></span>
+              </div>
+              <div class="card-row">
+                <span class="lbl">أتمّ</span>
+                <span class="val"><div class="completed-chips">${completed}</div></span>
+              </div>
+              <div class="card-row">
+                <span class="lbl">الهاتف</span>
+                <span class="val" dir="ltr">${phone}</span>
+              </div>
+              <div class="card-row">
+                <span class="lbl">السعر الشهري</span>
+                <span class="val">${price}</span>
+              </div>
+            </div>
+            ${link ? `
+            <a class="link-btn" href="${link}" target="_blank" rel="noopener">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3M10 2h4m0 0v4m0-4L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              فتح لينك الحصة
+            </a>` : ""}
+          </div>
+        `;
+      }).join("");
+
+      return `
+        <div class="time-group">
+          <div class="time-label">${time}</div>
+          <div class="cards-grid">${cardsHTML}</div>
+        </div>
+      `;
+    }).join("");
+
+    const total = Object.values(timeGroups).flat().length;
+    return `
+      <div class="day-section">
+        <div class="day-header">
+          <div class="day-name">${DAY_AR[day]||day}</div>
+          <div class="day-line"></div>
+          <div class="day-count">${total} طالب</div>
+        </div>
+        ${timeHTML}
+      </div>
+    `;
+  }).join("");
+}
+
+// ── Load data.json ──
+fetch("data.json")
+  .then(r => {
+    if (!r.ok) throw new Error("لم يتم العثور على data.json");
+    return r.json();
+  })
+  .then(raw => {
+    allStudents = flattenStudents(raw);
+    render();
+  })
+  .catch(err => {
+    // Fallback: show error message
+    document.getElementById("mainContent").innerHTML = `
+      <div class="no-results">
+        ⚠️ تعذّر تحميل data.json<br>
+        <small style="font-size:12px;margin-top:8px;display:block;">تأكدي أن ملف data.json موجود في نفس المجلد مع schedule.html</small>
+        <small style="font-size:11px;color:#555;margin-top:4px;display:block;">${err.message}</small>
+      </div>`;
+  });
+</script>
+</body>
+</html>
