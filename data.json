@@ -8,8 +8,8 @@
   "status": 1,
   "type": "group",
   "monthly_price": 400,
-  "Day": "Thursday",
-  "Time": "09:00 PM",
+  "Day": "Friday",
+  "Time": "05:00 PM",
   "phone_number": "+201030727091",
   "parent_phone": "+201060055537",
   "current_course": "data",
@@ -24,8 +24,8 @@
   "status": 1,
   "type": "group",
   "monthly_price": 400,
-   "Day": "Thursday",
-  "Time": "09:00 PM",
+     "Day": "Friday",
+  "Time": "05:00 PM",
   "phone_number": "+201151544072",
   "parent_phone": "+201024544540",
    "current_course": "data",
@@ -40,8 +40,8 @@
   "status": 1,
   "type": "group",
   "monthly_price": 400,
-  "Day": "Thursday",
-  "Time": "09:00 PM",
+    "Day": "Friday",
+  "Time": "05:00 PM",
   "phone_number": "+201205658715",
   "parent_phone": "+201148958279",
   "current_course": "data",
@@ -62,7 +62,7 @@
     "parent_phone": "+201068083921",
     "current_course": "js",
     "completed_courses": ["html","css"],
-    "track": "AI Track",
+    "track": "Web Track",
   "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
     
   },
@@ -79,7 +79,7 @@
     "parent_phone": "+201068083921",
      "current_course": "js",
     "completed_courses": ["html","css"],
-     "track": "AI Track",
+     "track": "Web Track",
   "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
   },
   {
@@ -95,12 +95,12 @@
     "parent_phone": "+201148158752",
      "current_course": "js",
     "completed_courses": ["html","css"],
-     "track": "AI Track",
+     "track": "Web Track",
   "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
   },
   
   {
-    "name": "مروان محمده",
+    "name": "مروان محمد",
     "id": "AEWX4078",
     "age": "16",
     "status": 1,
@@ -154,8 +154,8 @@
     "status": 1,
     "type": "Private",
     "monthly_price": 500,
-    "Day": "Friday",
-    "Time": "08:00 PM",
+    "Day": "Monday",
+    "Time": "04:00 PM",
     "phone_number": "+201140026224",
     "parent_phone": "+971508868623",
     "current_course": "js",
@@ -170,7 +170,7 @@
     "status": 1,
     "type": "group",
     "monthly_price": 300,
-    "Day": "Tuesday",
+    "Day": "Friday",
     "Time": "09:00 PM",
     "phone_number": "+201151736522",
     "parent_phone": "+201148158752",
@@ -187,7 +187,7 @@
     "status": 1,
     "type": "group",
     "monthly_price": 400,
-    "Day": "Tuesday",
+    "Day": "Wednesday",
     "Time": "09:00 PM",
     "phone_number": null,
     "parent_phone": null,
@@ -203,7 +203,7 @@
     "status": 1,
     "type": "group",
     "monthly_price": 0,
-    "Day": "Tuesday",
+     "Day": "Wednesday",
     "Time": "09:00 PM",
     "phone_number": "+201004055014",
     "parent_phone": "01002654382",
@@ -238,8 +238,8 @@
     "Time": "04:00 PM",
     "phone_number": "+20 10 27754750",
     "parent_phone": "+20 10 27754750",
-    "current_course": "css",
-    "completed_courses": ["html"],
+    "current_course": "html",
+    "completed_courses": [""],
     "track": "Web Track",
   "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"},
   
@@ -249,14 +249,17 @@
     "status": 1,
     "type": "group",
     "monthly_price": 500,
-    "Day": "لم يتم تحديد",
-    "Time": "",
+    "Day": "Monday",
+  "Time": "08:00 PM",
     "phone_number": "+201554673575",
     "parent_phone": "+201008879762",
     "current_course": "",
     "completed_courses": [],
     "track": "Web Track",
-  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"}
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+
+   }
+   
 
   
 
