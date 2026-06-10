@@ -324,7 +324,24 @@
     "track": "Web Track",
   "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
 
+   },
+        { "name": "بيرى تامر",
+    "id": "AMPW1234",
+    "age": "14",
+    "status": 1,
+    "type": "Private",
+    "monthly_price": 600,
+    "Day": "Friday",
+  "Time": "07:00 PM",
+    "phone_number": "+201092242186",
+    "parent_phone": "+20101516603",
+    "current_course": "html",
+    "completed_courses": [],
+    "track": "Web Track",
+  "link": " https://teams.live.com/meet/9395336981274?p=kbKa3CHmvM1ZELEwXh"
+
    }
+
 ]
 
   
