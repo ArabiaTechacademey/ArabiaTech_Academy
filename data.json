@@ -254,8 +254,10 @@
       "Time": "04:00 PM",
       "phone_number": "+201027754750",
       "parent_phone": "+201027754750",
-      "current_course": "html",
-      "completed_courses": [],
+      "current_course": ""css",
+      "completed_courses": [
+        "html"
+      ],
       "track": "Web Track",
       "teacher": "T2",
       "lesson_code": "W4",
@@ -290,8 +292,10 @@
       "Time": "06:00 PM",
       "phone_number": "+201554673575",
       "parent_phone": "+201008879762",
-      "current_course": "html",
-      "completed_courses": [],
+      "css",
+      "completed_courses": [
+        "html"
+      ],
       "track": "Web Track",
       "teacher": "T2",
       "lesson_code": "W2",
