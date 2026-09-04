@@ -154,8 +154,10 @@
       "Time": "06:00 PM",
       "phone_number": "01142419134",
       "parent_phone": "01100731205",
-      "current_course": "py",
-      "completed_courses": [],
+      "current_course": "data",
+      "completed_courses": [
+        "py"
+      ],
       "track": "AI Track",
       "teacher": "T1",
       "lesson_code": "A1",
@@ -274,8 +276,10 @@
       "Time": "08:00 PM",
       "phone_number": "+201026298492",
       "parent_phone": "+201148158752",
-      "current_course": "html",
-      "completed_courses": [],
+      "current_course": "css",
+      "completed_courses": [
+        "html"
+      ],
       "track": "Web Track",
       "teacher": "T4",
       "lesson_code": "W7",
@@ -300,24 +304,6 @@
       "teacher": "T2",
       "lesson_code": "W2",
       "link": "https://meet.google.com/dxs-xjii-bnf"
-    },
-    {
-      "name": "اروى تامر",
-      "id": "AMWX1115",
-      "age": "13",
-      "status": 1,
-      "type": "Private",
-      "monthly_price": 600,
-      "Day": "Friday",
-      "Time": "07:00 PM",
-      "phone_number": "+201552563680",
-      "parent_phone": "+201008879762",
-      "current_course": "html",
-      "completed_courses": [],
-      "track": "Web Track",
-      "teacher": "T2",
-      "lesson_code": "W3",
-      "link": "https://meet.google.com/gpn-cuwr-fir"
     },
     {
       "name": "تجريبى2",
@@ -373,8 +359,10 @@
       "Time": "08:00 PM",
       "phone_number": "+201069123162",
       "parent_phone": "+201011124373",
-      "current_course": "html",
-      "completed_courses": [],
+      "current_course": "css",
+      "completed_courses": [
+        "html"
+      ],
       "track": "Web Track",
       "teacher": "T4",
       "lesson_code": "W7",
