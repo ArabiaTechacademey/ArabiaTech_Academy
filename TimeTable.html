@@ -418,7 +418,7 @@ async function doLogin() {
     teacherSpecial = match.special || [];
 
     // Load students
-    const sRes = await fetch("../data/data.json");
+    const sRes = await fetch("data/data.json");
     if (!sRes.ok) throw new Error("data.json غير موجود");
     const sRaw = await sRes.json();
     allStudents = flattenStudents(sRaw).filter(s => s.teacher === match.code);
