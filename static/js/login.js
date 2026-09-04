@@ -39,7 +39,7 @@ const inp     = document.getElementById('sid');
     }
 
     sessionStorage.setItem('loggedStudentId', student.id);
-    window.location.href = 'student_profile.html';
+    window.location.href = 'Student_profile.html';
   }
 
   function setLoading(on) {
