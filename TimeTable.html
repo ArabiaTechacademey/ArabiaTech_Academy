@@ -402,7 +402,7 @@ async function doLogin() {
 
   try {
     // Load teacher.json from data/
-    const tRes  = await fetch("../data/teacher.json");
+    const tRes  = await fetch("data/teacher.json");
     if (!tRes.ok) throw new Error("teacher.json غير موجود");
     const tData = await tRes.json();
     const teachers = Array.isArray(tData) ? tData : (tData.teachers || [tData]);
