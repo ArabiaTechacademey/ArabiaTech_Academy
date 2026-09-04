@@ -412,7 +412,7 @@ async function doLogin() {
     if (!match) { showError("البريد الإلكتروني أو كلمة المرور غير صحيحة"); return; }
 
     // Load courses.json from data/
-    const cRes = await fetch("../data/courses.json");
+    const cRes = await fetch("data/courses.json");
     if (!cRes.ok) throw new Error("data/courses.json غير موجود");
     allCourses     = await cRes.json();
     teacherSpecial = match.special || [];
