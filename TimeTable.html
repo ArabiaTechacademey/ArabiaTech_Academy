@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>مواعيد الطلاب</title>
+
+<title>ArabiaTech Academy - Class schedule</title>
+  <link rel="icon" type="image/png" href="../static/image/icon1.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="icon" type="image/png" href="./static/image/icon3.png">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,8 +55,8 @@
   }
   @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
   .login-logo {
-    width: 52px; height: 52px; background: rgba(79,142,247,0.15);
-    border: 1px solid rgba(79,142,247,0.3); border-radius: 14px;
+    width: 100px; height: 100px; 
+    
     display: flex; align-items: center; justify-content: center; font-size: 22px;
     margin: 0 auto 1.25rem;
   }
@@ -113,13 +116,15 @@
   .top-bar .subtitle { font-size: 11px; color: var(--muted); margin-top: 2px; }
   .live-dot { width: 7px; height: 7px; background: var(--accent2); border-radius: 50%; display: inline-block; margin-left: 6px; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .top-bar-actions { display: flex; align-items: center; gap: 8px; }
   .logout-btn {
     padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border2);
     background: transparent; font-family: 'Cairo', sans-serif; font-size: 12px;
     color: var(--muted); cursor: pointer; transition: all 0.15s;
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 6px; text-decoration: none;
   }
   .logout-btn:hover { border-color: var(--red); color: var(--red); }
+  .report-btn:hover { border-color: var(--accent); color: var(--accent); }
 
   /* STATS */
   .stats-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
@@ -286,7 +291,7 @@
 <!-- ══════════════════ LOGIN ══════════════════ -->
 <div id="loginScreen">
   <div class="login-card">
-    <div class="login-logo">📅</div>
+    <div class="login-logo"><img src="../static/image/icon.png" alt="" width="100%"></div>
     <div class="login-title">لوحة المواعيد</div>
     <div class="login-sub">سجّل دخولك للوصول إلى جدول طلابك</div>
     <div class="field-group">
@@ -312,10 +317,16 @@
       <h1><span class="live-dot"></span> لوحة <span>المواعيد</span></h1>
       <div class="subtitle" id="teacherLabel">—</div>
     </div>
-    <button class="logout-btn" onclick="doLogout()">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M11 11l3-3-3-3M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      تسجيل الخروج
-    </button>
+    <div class="top-bar-actions">
+      <a class="logout-btn report-btn" href="report.html">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 3h10v10H3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.5 9.5l1.8-2 1.5 1.5 2.2-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        التقارير
+      </a>
+      <button class="logout-btn" onclick="doLogout()">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M11 11l3-3-3-3M14 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        تسجيل الخروج
+      </button>
+    </div>
   </div>
 
   <!-- NAV TABS -->
@@ -391,7 +402,7 @@ async function doLogin() {
 
   try {
     // Load teacher.json from data/
-    const tRes  = await fetch("teacher.json");
+    const tRes  = await fetch("data/teacher.json");
     if (!tRes.ok) throw new Error("teacher.json غير موجود");
     const tData = await tRes.json();
     const teachers = Array.isArray(tData) ? tData : (tData.teachers || [tData]);
@@ -401,13 +412,13 @@ async function doLogin() {
     if (!match) { showError("البريد الإلكتروني أو كلمة المرور غير صحيحة"); return; }
 
     // Load courses.json from data/
-    const cRes = await fetch("courses.json");
+    const cRes = await fetch("data/courses.json");
     if (!cRes.ok) throw new Error("data/courses.json غير موجود");
     allCourses     = await cRes.json();
     teacherSpecial = match.special || [];
 
     // Load students
-    const sRes = await fetch("data.json");
+    const sRes = await fetch("data/data.json");
     if (!sRes.ok) throw new Error("data.json غير موجود");
     const sRaw = await sRes.json();
     allStudents = flattenStudents(sRaw).filter(s => s.teacher === match.code);
